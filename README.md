@@ -1,0 +1,1 @@
+## Effects of nutrient and herbivory on *G. rugosa* biomass accumulation on a fringing reef in Moorea, French Polynesia - UCLA MBQ

@@ -1,0 +1,17 @@
+{
+    "contents" : "## MBQ nutrients and herbivory analysis\n## Experiment A\n## GREX Moorea Winer 2014\n\n# name data table\nExpA <- ExpA_grugosa_masses\nExpA\n\n# remove two rows of missing data (lost OSW treatments)\nExpA <- ExpA[-c(39,40), ]\nExpA\n\n# box plots\nplot(chg_mass ~ trt, data = ExpA)\n\n# Fligner-Killeen test of homogeneity of variances\nfligner.test(chg_mass ~ interaction(cage, sed_nut, watercol_nut), data = ExpA)\n\n\n################# bar plotting -- doesn't work yet -- #######################\n# find means by treatment\nmean_chg <- aggregate(ExpA[ ,7], list(Treatment=ExpA$trt), mean)\n\n# bar plot of means of chg in mass (not percent change)\n# specify x-axis order\nx1 <- factor(ExpA$trt, levels = c())\n\n#plot\nbarplot(mean_chg$x, ylab = \"Mean change in G. rugosa mass (g over 8 days)\", xlab = \"Treatment\")",
+    "created" : 1427207961537.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "877786777",
+    "id" : "E6518AB3",
+    "lastKnownWriteTime" : 1427214507,
+    "path" : "~/UCLA/2014 winter FMBQ/MBQ/MBQ_nutherb/analyses/MBQ_nutherb_analyses/ExpA_analysis.R",
+    "project_path" : "ExpA_analysis.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

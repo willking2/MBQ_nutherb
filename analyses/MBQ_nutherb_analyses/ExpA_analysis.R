@@ -19,10 +19,16 @@ ExpA$watercol_nut <- as.factor(ExpA$watercol_nut)
 
 #full linear, normal model 
 # not weighted.. should it be?
-modelA.1 <- lm(chg_mass ~ cage + sed_nut + watercol_nut + cage:sed_nut + cage:watercol_nut + sed_nut:watercol_nut + cage:sed_nut:watercol_nut, data = ExpA)
+modelA.1 <- aov(chg_mass ~ cage + sed_nut + watercol_nut + cage:sed_nut + cage:watercol_nut + sed_nut:watercol_nut + cage:sed_nut:watercol_nut, data = ExpA)
 model.matrix(modelA.1)
 summary(modelA.1)
 anova(modelA.1) # signifcant three way interaction
+
+
+modelA.2 <- aov(chg_mass ~ trt, data = ExpA)
+model.matrix(modelA.1)
+summary(modelA.2)
+anova(modelA.2)
 
 # studentized deleted residuals vs. model fits
 plot(modelA.1$fit, rstudent(modelA.1), xlab = "model fit", ylab = "studentized deleted residuals", ylim = c(-3,3))
@@ -82,6 +88,20 @@ interaction.plot(ExpA_uncaged$sed_nut, ExpA_uncaged$watercol_nut, ExpA_uncaged$c
                  main = "uncaged"
                  )
 legend(x = "topright", legend = c("0", "1"), lty = c(2, 1), title = "water col nut", bty = "o", horiz = TRUE, y.intersp = 0.75)
+
+## multiple comparisons
+TukeyHSD(modelA.1, "cage:sed_nut:watercol_nut", ordered = FALSE, conf.level = 0.95)
+plot(TukeyHSD(modelA.1, "cage"))
+plot(TukeyHSD(modelA.1, "sed_nut"))
+plot(TukeyHSD(modelA.1, "watercol_nut"))
+plot(TukeyHSD(modelA.1, "cage:watercol_nut"))
+plot(TukeyHSD(modelA.1, "cage:sed_nut"))
+plot(TukeyHSD(modelA.1, "sed_nut:watercol_nut"))
+plot(TukeyHSD(modelA.1, "cage:sed_nut:watercol_nut"))
+
+TukeyHSD(modelA.2, "trt", ordered = FALSE, conf.level = 0.95)
+plot(TukeyHSD(modelA.2, "trt"))
+
 
 #############################################################################
 ######### old analyses... (only took QSCI482) see below
